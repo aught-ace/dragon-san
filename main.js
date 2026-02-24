@@ -240,7 +240,7 @@ const sceneMessage = {
         'ドラゴンさんデブだからきつい…。',
     ],
     oshioki: [
-        '中。きっと過酷だな。',
+        '中。ケモノくんにはきっと過酷だな。',
         'をしてやる。体がおかしくなりそうだろ。',
         '中。中のケモノには地獄だろうな。',
         'をしてやる。最高に気持ちいいだろ。',
@@ -372,15 +372,19 @@ const draw = () => {
     if(scene === 'stand') drawKemono(0, 0, 2, 4, 56, 88); // 立ちシーン
     if(scene === 'vs') drawVs(); // 対戦顔アイコン
     if(scene === 'win') drawWin(); // 対戦顔アイコン
-    if(scene === 'start' || scene === 'opened' || scene === 'debu') { // 口を開けているシーン
-        drawKemono(4 + 4 * (kemono.animation < 0.5? 0 : 1), 2 * (kemono.hp >= 0.8? 0 : 1), 4, 2, 24, 46);
+    if(scene === 'start') { // 口を開けているシーン
+        drawKemono(4 + 4 * (kemono.animation < 0.5? 0 : 1), 0, 4, 2, 24, 46);
+        drawDragon(0, 0);
+    }
+    if(scene === 'opened' || scene === 'debu') { // 口を開けているシーン
+        drawKemono(4 + 4 * (kemono.animation < 0.5? 0 : 1), 2, 4, 2, 24, 46);
         drawDragon(0, 0);
     }
     if(scene === 'end') { // 口を閉じているが終了したシーン
         drawDragon(2, 2);
     }
     if(scene === 'release') { // 口を開けて終了する
-        drawKemono(4 + 4 * (kemono.animation < 0.5? 0 : 1), 2 * (kemono.hp < 0.5? 0 : 1), 4, 2, 24, 46);
+        drawKemono(4 + 4 * (kemono.animation < 0.5? 0 : 1), 2, 4, 2, 24, 46);
         drawDragon(0, 0);
     }
     if(scene === 'closed' || scene === 'ikari') drawDragon(2, 2); // 口を閉じる
@@ -397,35 +401,35 @@ const draw = () => {
             (dragon.lickType === 0 || dragon.lickType === 1) &&
             (dragon.prevFrame === 0 && r === 1)
         ) {
-            sound(160, 0.04, 55);
+            sound(160, 0.08, 55);
         }
         if(
             (dragon.lickType === 0 || dragon.lickType === 1) &&
             (dragon.prevFrame === 2 && r === 3)
         ) {
-            kemono.hp -= 0.004 * dragon.speed * dragon.intensity;
-            sound(55, 0.04, 160);
+            kemono.hp -= 0.008 * dragon.speed * dragon.intensity;
+            sound(55, 0.08, 160);
         }
         if(
             (dragon.lickType === 2 || dragon.lickType === 3) &&
             (dragon.prevFrame === 0 && r === 1 || dragon.prevFrame === 2 && r === 3)
         ) {
-            kemono.hp -= 0.002 * dragon.speed * dragon.intensity;
-            sound(110, 0.04, 160);
+            kemono.hp -= 0.004 * dragon.speed * dragon.intensity;
+            sound(110, 0.08, 160);
         }
         if(
             (dragon.lickType === 4 || dragon.lickType === 5) &&
             (dragon.prevFrame === 0 && r === 1)
         ) {
-            kemono.hp -= 0.001 * dragon.speed * dragon.intensity;
-            sound(220, 0.04, 110);
+            kemono.hp -= 0.002 * dragon.speed * dragon.intensity;
+            sound(220, 0.08, 110);
         }
         if(
             (dragon.lickType === 4 || dragon.lickType === 5) &&
             (dragon.prevFrame === 2 && r === 3)
         ) {
-            kemono.hp -= 0.003 * dragon.speed * dragon.intensity;
-            sound(110, 0.04, 220);
+            kemono.hp -= 0.006 * dragon.speed * dragon.intensity;
+            sound(110, 0.08, 220);
         }
 
         drawDragon(
@@ -449,7 +453,7 @@ const draw = () => {
         else drawDragon(1, 3);
         if(wait > 1 && dragon.prevFrame === 0 && r === 1) {
             kemono.level--;
-            sound(220, 0.04, 55);
+            sound(220, 0.08, 55);
         }
         dragon.prevFrame = r;
     }
@@ -462,7 +466,7 @@ const draw = () => {
         if(wait > 2) drawDragon(3, r);
         else drawDragon(1, 3);
         if(wait > 2 && dragon.prevFrame === 0 && r === 1) {
-            sound(220, 0.04, 55);
+            sound(220, 0.08, 55);
         }
         dragon.prevFrame = r;
     }
@@ -521,7 +525,7 @@ const frame = (timestamp) => {
         scene !== 'empty' &&
         scene !== 'swallowed' &&
         scene !== 'gameover'
-    ) kemono.hp = Math.min(kemono.hp + deltaTime * 0.002 * (1 / kemono.hp), 1)
+    ) kemono.hp = Math.min(kemono.hp + deltaTime * 0.004 * (1 / kemono.hp), 1)
 
 
     // 時間経過で次のシーンに移る
@@ -630,14 +634,14 @@ const frame = (timestamp) => {
             scene === 'opened'
         ) {
             say(sceneMessage[scene][Math.floor((1 - kemono.hp) * sceneMessage[scene].length * 0.999)]);
-            sound(55, 0.04, 220);
+            sound(55, 0.08, 220);
         }
 
         // お仕置き後
         if(
             scene === 'kanryo'
         ) {
-            sound(55, 0.04, 220);
+            sound(55, 0.08, 220);
         }
 
         // 現在のステージに応じた台詞
@@ -665,8 +669,8 @@ const frame = (timestamp) => {
         }
 
         if(scene === 'closed') {
-            say('あむ。');
-            sound(220, 0.04, 110);
+            say('あむ！');
+            sound(220, 0.08, 110);
         }
         if(scene === 'licking') {
             dragon.lickType = randomRange(0, 6);
@@ -679,16 +683,17 @@ const frame = (timestamp) => {
             if(!randomRange(0, 4)) dragon.intensity = 1.4;
             if(!randomRange(0, 4)) dragon.count = 1.4;
             say(
+                '舌を使って' +
                 (dragon.intensity === 1? '' : '力強く') +
                 (dragon.speed === 1? '' : '速く') +
-                (dragon.count === 1? '' : '繰り返し') +
+                (dragon.count === 1? '' : '何度も') +
                 lickName[dragon.lickType][q] +
                 sceneMessage[scene][r]
             );
         }
         if(scene === 'ikari') {
             say('ばむ!!');
-            sound(220, 0.04, 110);
+            sound(220, 0.08, 55);
         }
         if(scene === 'oshioki') {
             dragon.lickType = randomRange(0, 6);
@@ -697,20 +702,21 @@ const frame = (timestamp) => {
             dragon.speed = 1.2;
             dragon.intensity = 1.2;
             dragon.count = 1.2;
-            if(!randomRange(0, 3)) dragon.speed = 1.6;
-            if(!randomRange(0, 3)) dragon.intensity = 1.6;
-            if(!randomRange(0, 3)) dragon.count = 1.6;
+            if(!randomRange(0, 2)) dragon.speed = 1.6;
+            if(!randomRange(0, 2)) dragon.intensity = 1.6;
+            if(!randomRange(0, 2)) dragon.count = 1.6;
             say(
-                (dragon.intensity === 1.2? '強く' : '思い切り') +
-                (dragon.speed === 1.2? '速めに' : '激しく') +
-                (dragon.count === 1.2? '何回も' : '執拗に') +
+                'わからせが必要だ。' +
+                (dragon.intensity === 1.2? '' : '思い切り') +
+                (dragon.speed === 1.2? '' : '激しく') +
+                (dragon.count === 1.2? '' : '執拗に') +
                 lickName[dragon.lickType][q] +
                 sceneMessage[scene][r]
             );
         }
         if(scene === 'stand') {
             col('kemono', kemono.color)
-            say(`今のレベルは${kemono.level}だ。`);
+            say(`レベルは${kemono.level}だ。`);
         }
         if(scene === 'draining') {
             say('!!!!!!!!!!!');
@@ -736,7 +742,7 @@ const init = () => {
     scene = 'stand';
     say('レベルはまだ0だ。');
     isPlaying = true;
-    dragon.phase = 7;
+    dragon.phase = 0;
 }
 
 // スタートボタンをおした
