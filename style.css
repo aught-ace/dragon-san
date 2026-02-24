@@ -1,0 +1,113 @@
+/* 横長 */
+@media (min-aspect-ratio: 1/2) {
+    main {
+        inline-size: calc(100svh / 2);
+        block-size: 100svh;
+        font-size: calc(100svh / 40);
+    }
+}
+
+/* 縦長 */
+@media (max-aspect-ratio: 1/2) {
+    main {
+        inline-size: 100svw;
+        block-size: calc(100svw * 2);
+        font-size: calc(100svw / 40 * 2);
+    }
+}
+
+.dragon { background-color: #533; color: #F99; }
+.kemono { background-color: #F99; color: #533; }
+
+.color-0  { filter: hue-rotate(0deg); }
+.color-1  { filter: hue-rotate(30deg); }
+.color-2  { filter: hue-rotate(60deg); }
+.color-3  { filter: hue-rotate(90deg); }
+.color-4  { filter: hue-rotate(120deg); }
+.color-5  { filter: hue-rotate(150deg); }
+.color-6  { filter: hue-rotate(180deg); }
+.color-7  { filter: hue-rotate(210deg); }
+.color-8  { filter: hue-rotate(240deg); }
+.color-9  { filter: hue-rotate(270deg); }
+.color-10 { filter: hue-rotate(300deg); }
+.color-11 { filter: hue-rotate(330deg); }
+.color-12 { filter: grayscale(1) brightness(0.5); }
+.color-13 { filter: grayscale(1); }
+
+.none {
+    display: none;
+}
+
+main {
+    display: grid;
+    grid-template-columns: repeat(20, 1fr);
+    grid-template-rows: repeat(40, 1fr);
+    margin: auto;
+}
+
+canvas {
+    grid-column-start: 1;
+    grid-column-end:   21;
+    grid-row-start:    1;
+    grid-row-end:      21;
+    inline-size: 100%;
+    block-size: 100%;
+    image-rendering: pixelated;
+}
+
+#message {
+    padding-block: 0.5em;
+    padding-inline: 1em;
+    border-radius: 1em;
+    grid-column-start: 1;
+    grid-column-end:   21;
+    grid-row-start:    21;
+    grid-row-end:      41;
+    line-height: 2em;
+    word-break: break-all;
+}
+
+em {
+    background-color: #A66;
+    font-style: normal;
+}
+
+#start {
+    grid-column-start: 5;
+    grid-column-end:   17;
+    grid-row-start:    4;
+    grid-row-end:      11;
+    background-color: #533;
+    color: #F99;
+    border-radius: 0.5em;
+    cursor: pointer;
+}
+
+/* 全体 */
+body {
+    background-color: #FFF;
+    color: #000;
+    inline-size: 100%;
+    block-size: 100%;
+    overflow: hidden;
+}
+html {
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    inline-size: 100%;
+    block-size: 100%;
+    overflow: hidden;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border-style: none;
+    font-weight: normal;
+    font-family: sans-serif;
+    font-size: 1em;
+    word-spacing: 0;
+    box-sizing: border-box;
+    touch-action: manipulation;
+    outline: none;
+}
