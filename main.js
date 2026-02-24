@@ -581,7 +581,6 @@ const frame = (timestamp) => {
         if(scene === 'start') wait = 6;
         if(scene === 'closed') wait = 2;
         if(scene === 'licking') {
-            wait = 12 / dragon.speed * dragon.count;
             dragon.animation = 0;
         }
         if(scene === 'licked') {
@@ -591,7 +590,6 @@ const frame = (timestamp) => {
         if(scene === 'debu') wait = 2;
         if(scene === 'ikari') wait = 1;
         if(scene === 'oshioki') {
-            wait = 12 / dragon.speed * dragon.count;
             dragon.animation = 0;
         }
         if(scene === 'kanryo') wait = 4;
@@ -683,6 +681,7 @@ const frame = (timestamp) => {
             if(!randomRange(0, 4)) dragon.speed = 1.4;
             if(!randomRange(0, 4)) dragon.intensity = 1.4;
             if(!randomRange(0, 4)) dragon.count = 1.4;
+            wait = 12 / dragon.speed * dragon.count;
             say(
                 '舌を使って' +
                 (dragon.intensity === 1? '' : '力強く') +
@@ -706,6 +705,7 @@ const frame = (timestamp) => {
             if(!randomRange(0, 2)) dragon.speed = 1.6;
             if(!randomRange(0, 2)) dragon.intensity = 1.6;
             if(!randomRange(0, 2)) dragon.count = 1.6;
+            wait = 12 / dragon.speed * dragon.count;
             say(
                 'わからせが必要だ。' +
                 (dragon.intensity === 1.2? '' : '思い切り') +
