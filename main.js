@@ -634,7 +634,7 @@ const frame = (timestamp) => {
 
         // お仕置き後
         if(
-            scene === 'release'
+            scene === 'kanryo'
         ) {
             sound(55, 0.04, 220);
         }
