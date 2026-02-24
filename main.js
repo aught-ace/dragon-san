@@ -525,7 +525,7 @@ const frame = (timestamp) => {
         scene !== 'empty' &&
         scene !== 'swallowed' &&
         scene !== 'gameover'
-    ) kemono.hp = Math.min(kemono.hp + deltaTime * 0.004 * (1 / kemono.hp), 1)
+    ) kemono.hp = Math.min(kemono.hp + deltaTime * 0.008 * (1 / kemono.hp), 1)
 
 
     // 時間経過で次のシーンに移る
