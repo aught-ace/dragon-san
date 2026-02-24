@@ -639,6 +639,7 @@ const frame = (timestamp) => {
 
         // お仕置き後
         if(
+            scene === 'debu' ||
             scene === 'gomennasai'
         ) {
             sound(55, 0.08, 220);
