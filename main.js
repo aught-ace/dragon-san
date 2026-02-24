@@ -534,8 +534,8 @@ const frame = (timestamp) => {
             scene = 'licked';
             dragon.phase++;
             if(
-                currentStage < 12 && dragon.phase >= 8 ||
-                currentStage === 12 && dragon.phase >= 16 ||
+                currentStage < 12 && dragon.phase >= 5 ||
+                currentStage === 12 && dragon.phase >= 10 ||
                 currentStage === 13 && dragon.phase >= 255
             ) {
                 dragon.phase = 0;
@@ -563,6 +563,7 @@ const frame = (timestamp) => {
             dragon.phase = 0;
             currentStage++;
             dragon.color = stageColor[currentStage];
+            dragonCanvas.className = `color-${dragon.color}`;
         }
         else if(scene === 'giveup') scene = 'lookup';
         else if(scene === 'lookup') scene = 'draining';
@@ -708,6 +709,7 @@ const frame = (timestamp) => {
             );
         }
         if(scene === 'stand') {
+            col('kemono', kemono.color)
             say(`今のレベルは${kemono.level}だ。`);
         }
         if(scene === 'draining') {
@@ -734,7 +736,7 @@ const init = () => {
     scene = 'stand';
     say('レベルはまだ0だ。');
     isPlaying = true;
-    dragon.phase = 0;
+    dragon.phase = 7;
 }
 
 // スタートボタンをおした
